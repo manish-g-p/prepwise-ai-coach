@@ -1,0 +1,44 @@
+# Local containerised run of the full stack.
+#
+# There is deliberately NO mongo service: the app uses MongoDB Atlas (free M0),
+# which keeps ~300MB of RAM off your laptop. Memory limits below stop the
+# containers from starving the host.
+#
+#   docker compose up --build      start everything
+#   docker compose down            stop and remove
+#
+# Frontend -> http://localhost:8080
+# Backend  -> http://localhost:3000
+
+services:
+  backend:
+    build:
+      context: ./Backend
+    container_name: interview-ai-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Backend/.env
+    environment:
+      # Local containers talk over plain HTTP, so keep the non-production
+      # cookie flags (SameSite=Lax, no Secure) or login will not stick.
+      # The real deployment sets NODE_ENV=production instead.
+      NODE_ENV: development
+      PORT: 3000
+      FRONTEND_URL: http://localhost:8080
+    mem_limit: 512m
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        # Vite bakes this in at build time, so it must be set here, not at runtime.
+        VITE_API_URL: http://localhost:3000
+    container_name: interview-ai-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    mem_limit: 128m
+    restart: unless-stopped
