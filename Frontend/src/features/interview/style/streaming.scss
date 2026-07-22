@@ -1,0 +1,169 @@
+$bg-page: #0d1117;
+$bg-card: #161b22;
+$bg-panel: #1c2230;
+$border-color: #2a3348;
+$text-primary: #e6edf3;
+$text-muted: #7d8590;
+$accent: #ff2d78;
+$severity-low: #3fb950;
+
+.stream-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $bg-page;
+    padding: 2rem;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.stream-card {
+    width: 100%;
+    max-width: 640px;
+    background-color: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 16px;
+    padding: 2rem;
+    color: $text-primary;
+
+    &--error {
+        text-align: center;
+
+        h1 { color: $accent; margin-bottom: 0.5rem; }
+        p { color: $text-muted; margin-bottom: 1.5rem; }
+    }
+}
+
+.stream-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.4rem;
+
+    h1 { font-size: 1.4rem; font-weight: 600; }
+}
+
+.stream-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba($accent, 0.25);
+    border-top-color: $accent;
+    border-radius: 50%;
+    animation: stream-spin 0.8s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes stream-spin {
+    to { transform: rotate(360deg); }
+}
+
+.stream-status {
+    color: $text-muted;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    min-height: 1.2em;
+}
+
+.stream-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.stream-stat {
+    background-color: $bg-panel;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    padding: 0.9rem 0.5rem;
+    text-align: center;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+
+    &--ready {
+        opacity: 1;
+        border-color: rgba($severity-low, 0.5);
+        transform: translateY(-2px);
+    }
+
+    &__value {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-primary;
+    }
+
+    &__label {
+        display: block;
+        font-size: 0.72rem;
+        color: $text-muted;
+        margin-top: 0.2rem;
+    }
+}
+
+.stream-preview {
+    border-top: 1px solid $border-color;
+    padding-top: 1.2rem;
+
+    &__label {
+        font-size: 0.8rem;
+        color: $text-muted;
+        margin-bottom: 0.8rem;
+    }
+
+    &__list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        max-height: 240px;
+        overflow-y: auto;
+    }
+
+    &__item {
+        display: flex;
+        gap: 0.6rem;
+        font-size: 0.85rem;
+        line-height: 1.4;
+        color: $text-primary;
+        animation: stream-fade-in 0.4s ease;
+    }
+
+    &__q {
+        color: $accent;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+}
+
+@keyframes stream-fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.stream-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.stream-btn {
+    padding: 0.6rem 1.4rem;
+    border-radius: 8px;
+    border: 1px solid $border-color;
+    background: transparent;
+    color: $text-primary;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover { background: $bg-panel; }
+
+    &--primary {
+        background: $accent;
+        border-color: $accent;
+        color: #fff;
+
+        &:hover { background: darken($accent, 8%); }
+    }
+}
