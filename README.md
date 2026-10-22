@@ -8,7 +8,7 @@ answers.
 
 **Stack:** React (Vite) · Node.js · Express · MongoDB · Google Gemini · Docker
 
-**[▶ Live demo](https://prepwise-ai-coach.vercel.app)** — frontend on Vercel, API on Render, database on MongoDB Atlas.
+ — frontend on Vercel, API on Render, database on MongoDB Atlas.
 
 > The API runs on Render's free tier, which sleeps after ~15 minutes of
 > inactivity. The first request after idle takes 30–60s to wake the service;
